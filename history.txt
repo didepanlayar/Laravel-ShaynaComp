@@ -1,0 +1,9 @@
+- Install Laravel 11
+  $ composer create-project "laravel/laravel:^11.0" ShaynaComp
+
+- Configure Hosts
+
+- Create database and configure .env
+
+- Check database connection
+  $ php artisan db:monitor
