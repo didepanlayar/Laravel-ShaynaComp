@@ -8,6 +8,20 @@
 - Check database connection
   $ php artisan db:monitor
 
+# Redis Integration
+- Modify .env
+  CACHE_STORE=redis
+  QUEUE_CONNECTION=redis
+  SESSION_DRIVER=redis
+  REDIS_HOST=redis (Docker Container)
+  REDIS_PASSWORD=null (Set Redis Password)
+  REDIS_PORT=6379
+- Check Redis Connection
+  $ php artisan tinker
+  > Cache::put('test', 'redis-works', 10);
+  > Cache::get('test');
+  $"redis-works" (Output)
+
 - Install Laravel Breeze
   $ composer require laravel/breeze --dev
   $ php artisan breeze:install
