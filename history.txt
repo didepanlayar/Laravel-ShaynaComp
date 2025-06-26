@@ -33,3 +33,8 @@
   $ php artisan optimize:clear
   $ php artisan migrate
 - Modify User models
+
+- Role Permission Seeder
+  $ php artisan make:seeder RolePermissionSeeder
+- Modify RolePermissionSeeder and run seeder
+  $ php artisan db:seed --class=RolePermissionSeeder
