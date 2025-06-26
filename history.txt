@@ -38,3 +38,18 @@
   $ php artisan make:seeder RolePermissionSeeder
 - Modify RolePermissionSeeder and run seeder
   $ php artisan db:seed --class=RolePermissionSeeder
+
+- Create Model, Migration and Controller
+  $ php artisan make:model ProjectClient -mcr
+  $ php artisan make:model Product -mcr
+  $ php artisan make:model CompanyStatistic -mcr
+  $ php artisan make:model Testimonial -mcr
+  $ php artisan make:model Appointment -mcr
+  $ php artisan make:model OurPrinsiple -mcr
+  $ php artisan make:model HeroSection -mcr
+  $ php artisan make:model OurTeam -mcr
+  $ php artisan make:model CompanyAbout -mcr
+  $ php artisan make:model CompanyKeypoint -mcr
+- Modify all migration files above
+- Migarte to database (make sure the relationship table above)
+  $ php artisan migrate
