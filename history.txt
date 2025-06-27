@@ -65,3 +65,24 @@
   $ php artisan make:controller FrontController
 - Copy all pages to views
 - Assign super_admin role to AppServiceProvider.php
+
+- Create Custom Form Request
+  $ php artisan make:request StoreProductRequest
+  $ php artisan make:request UpdateProductRequest
+  $ php artisan make:request StoreStatisticRequest
+  $ php artisan make:request UpdateStatisticRequest
+  $ php artisan make:request StoreTeamRequest
+  $ php artisan make:request UpdateTeamRequest
+  $ php artisan make:request StoreHeroSectionRequest
+  $ php artisan make:request UpdateHeroSectionRequest
+  $ php artisan make:request StoreAboutRequest
+  $ php artisan make:request UpdateAboutRequest
+  $ php artisan make:request StorePrincipleRequest
+  $ php artisan make:request UpdatePrincipleRequest
+  $ php artisan make:request StoreTestimonialRequest
+  $ php artisan make:request UpdateTestimonialRequest
+  $ php artisan make:request StoreAppointmentRequest
+  $ php artisan make:request UpdateAppointmentRequest
+  $ php artisan make:request StoreClientRequest
+  $ php artisan make:request UpdateClientRequest
+- Modify all request files above
