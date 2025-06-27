@@ -3,18 +3,17 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\CompanyAboutController;
 use App\Http\Controllers\CompanyStatisticController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HeroSectionController;
+use App\Http\Controllers\OurPrincipleController;
 use App\Http\Controllers\OurTeamController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectClientController;
 use App\Http\Controllers\TestimonialController;
-use App\Models\OurPrinciple;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontController::class, 'index'])->name('front.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
         // Manage Principles
         Route::middleware('can: Manage Principles')->group(function () {
-            Route::resource('principles', OurPrinciple::class);
+            Route::resource('principles', OurPrincipleController::class);
         });
 
         // Manage Testimonials

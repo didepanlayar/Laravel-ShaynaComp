@@ -59,3 +59,9 @@
 - Remove register from auth.php routes
 - Modify web.php routes
 - Refactor typo
+
+# CMS Page Preparation
+- Create FrontController
+  $ php artisan make:controller FrontController
+- Copy all pages to views
+- Assign super_admin role to AppServiceProvider.php
