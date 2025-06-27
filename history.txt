@@ -53,5 +53,9 @@
 - Modify all migration files above
 - Migarte to database (make sure the relationship table above)
   $ php artisan migrate
-
 - Modify all Models above
+
+# Create Larave Route
+- Remove register from auth.php routes
+- Modify web.php routes
+- Refactor typo

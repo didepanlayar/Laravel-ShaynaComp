@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OurPrinsiple;
+use App\Models\OurPrinciple;
 use Illuminate\Http\Request;
 
-class OurPrinsipleController extends Controller
+class OurPrincipleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class OurPrinsipleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(OurPrinsiple $ourPrinsiple)
+    public function show(OurPrinciple $OurPrinciple)
     {
         //
     }
@@ -42,7 +42,7 @@ class OurPrinsipleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OurPrinsiple $ourPrinsiple)
+    public function edit(OurPrinciple $OurPrinciple)
     {
         //
     }
@@ -50,7 +50,7 @@ class OurPrinsipleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OurPrinsiple $ourPrinsiple)
+    public function update(Request $request, OurPrinciple $OurPrinciple)
     {
         //
     }
@@ -58,7 +58,7 @@ class OurPrinsipleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OurPrinsiple $ourPrinsiple)
+    public function destroy(OurPrinciple $OurPrinciple)
     {
         //
     }
