@@ -8,8 +8,17 @@
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg"> 
-                <form method="POST" action=" " enctype="multipart/form-data"> 
 
+                @if ($errors->any)
+                    @foreach ($errors->all() as $error)
+                        <div class="py-3 w-full-rounded-3xl bg-red-500 text-white">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
+
+                <form method="POST" action="{{ route('admin.clients.store') }}" enctype="multipart/form-data"> 
+                    @csrf
                     <div>
                         <x-input-label for="name" :value="__('Name')" />
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
@@ -17,19 +26,19 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="occupation" :value="__('occupation')" />
+                        <x-input-label for="occupation" :value="__('Occupation')" />
                         <x-text-input id="occupation" class="block mt-1 w-full" type="text" name="occupation" :value="old('occupation')" required autofocus autocomplete="occupation" />
                         <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="avatar" :value="__('avatar')" />
+                        <x-input-label for="avatar" :value="__('Avatar')" />
                         <x-text-input id="avatar" class="block mt-1 w-full" type="file" name="avatar" required autofocus autocomplete="avatar" />
                         <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
                     </div> 
 
                     <div class="mt-4">
-                        <x-input-label for="logo" :value="__('logo')" />
+                        <x-input-label for="logo" :value="__('Logo')" />
                         <x-text-input id="logo" class="block mt-1 w-full" type="file" name="logo" required autofocus autocomplete="logo" />
                         <x-input-error :messages="$errors->get('logo')" class="mt-2" />
                     </div> 

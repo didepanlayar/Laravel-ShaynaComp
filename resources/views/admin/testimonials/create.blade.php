@@ -7,29 +7,37 @@
 
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg"> 
-                
-                <form method="POST" action=" " enctype="multipart/form-data">
+            <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg">
 
+                @if ($errors->any)
+                    @foreach ($errors->all() as $error)
+                        <div class="py-3 w-full-rounded-3xl bg-red-500 text-white">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
 
+                <form method="POST" action="{{ route('admin.teams.store') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="mt-4">
-                        <x-input-label for="project_client" :value="__('project_client')" />
-                        
-                        <select name="project_client_id" id="project_client_id" class="py-3 rounded-lg pl-3 w-full border border-slate-300">
-                            <option value="">Choose project_client</option> 
-                        </select>
-
+                        <x-input-label for="project_client" :value="__('Project Client')" />
+                            <select name="project_client_id" id="project_client_id" class="py-3 rounded-lg pl-3 w-full border border-slate-300">
+                                <option value="">Select Project Client</option> 
+                                @foreach ($clients as $client)
+                                    <option value="{{ $client->id }}">{{ $client->name }}</option> 
+                                @endforeach
+                            </select>
                         <x-input-error :messages="$errors->get('project_client')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="message" :value="__('message')" />
+                        <x-input-label for="message" :value="__('Message')" />
                         <textarea name="message" id="message" cols="30" rows="5" class="border border-slate-300 rounded-xl w-full"></textarea>
                         <x-input-error :messages="$errors->get('message')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="thumbnail" :value="__('thumbnail')" />
+                        <x-input-label for="thumbnail" :value="__('Thumbnail')" />
                         <x-text-input id="thumbnail" class="block mt-1 w-full" type="file" name="thumbnail" required autofocus autocomplete="thumbnail" />
                         <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
                     </div> 
