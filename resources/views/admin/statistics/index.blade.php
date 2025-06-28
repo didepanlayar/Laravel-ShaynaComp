@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Manage Statistics') }}
             </h2>
-            <a href=" " class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+            <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                 Add New
             </a>
         </div>
@@ -23,7 +23,7 @@
                     </div> 
                     <div  class="hidden md:flex flex-col">
                         <p class="text-slate-500 text-sm">Date</p>
-                        <h3 class="text-indigo-950 text-xl font-bold">asdasdsad}</h3>
+                        <h3 class="text-indigo-950 text-xl font-bold">asdasdsad</h3>
                     </div>
                     <div class="hidden md:flex flex-row items-center gap-x-3">
                         <a href=" " class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
