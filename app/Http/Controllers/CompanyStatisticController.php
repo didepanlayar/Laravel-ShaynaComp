@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStatisticRequest;
 use App\Models\CompanyStatistic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CompanyStatisticController extends Controller
 {
@@ -31,7 +32,20 @@ class CompanyStatisticController extends Controller
      */
     public function store(StoreStatisticRequest $request)
     {
-        //
+        // closure-based transaction
+
+        DB::transaction(function () use($request) {
+            $validated = $request->validated();
+
+            if($request->hasFile('icon')) {
+                $iconPath = $request->file('icon')->store('icons', 'public');
+                $validated['icon'] = $iconPath;
+            }
+
+            $newStatistic =  CompanyStatistic::create($validated);
+        });
+
+        return redirect()->route('admin.statistics.index');
     }
 
     /**

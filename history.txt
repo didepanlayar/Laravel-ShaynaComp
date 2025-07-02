@@ -108,3 +108,9 @@
   $ php artisan make:request StoreClientRequest
   $ php artisan make:request UpdateClientRequest
 - Modify all request files above
+
+- Symlink (symbolic link) storage folder
+  $ php artisan storage:link
+
+# Insert Data
+- Modify all controllers to store()
