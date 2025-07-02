@@ -6,6 +6,7 @@ use App\Http\Requests\StorePrincipleRequest;
 use App\Models\OurPrinciple;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OurPrincipleController extends Controller
 {
@@ -80,8 +81,18 @@ class OurPrincipleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OurPrinciple $OurPrinciple)
+    public function destroy(OurPrinciple $principle)
     {
-        //
+        DB::transaction(function () use($principle) {
+            if ($principle->icon && Storage::disk('public')->exists($principle->icon)) {
+                Storage::disk('public')->delete($principle->icon);
+            }
+            if ($principle->thumbnail && Storage::disk('public')->exists($principle->thumbnail)) {
+                Storage::disk('public')->delete($principle->thumbnail);
+            }
+            $principle->delete();
+        });
+
+        return redirect()->route('admin.principles.index');
     }
 }

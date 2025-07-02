@@ -17,7 +17,7 @@
                     @endforeach
                 @endif
 
-                <form method="POST" action="{{ route('admin.teams.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.testimonials.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="mt-4">
                         <x-input-label for="project_client" :value="__('Project Client')" />
@@ -27,7 +27,7 @@
                                     <option value="{{ $client->id }}">{{ $client->name }}</option> 
                                 @endforeach
                             </select>
-                        <x-input-error :messages="$errors->get('project_client')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('project_client_id')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">

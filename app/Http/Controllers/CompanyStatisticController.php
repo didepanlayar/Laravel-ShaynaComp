@@ -6,6 +6,7 @@ use App\Http\Requests\StoreStatisticRequest;
 use App\Models\CompanyStatistic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyStatisticController extends Controller
 {
@@ -75,8 +76,15 @@ class CompanyStatisticController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CompanyStatistic $companyStatistic)
+    public function destroy(CompanyStatistic $statistic)
     {
-        //
+        DB::transaction(function () use($statistic) {
+            if ($statistic->icon && Storage::disk('public')->exists($statistic->icon)) {
+                Storage::disk('public')->delete($statistic->icon);
+            }
+            $statistic->delete();
+        });
+
+        return redirect()->route('admin.statistics.index');
     }
 }

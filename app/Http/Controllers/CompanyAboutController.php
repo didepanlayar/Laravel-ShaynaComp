@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAboutRequest;
 use App\Models\CompanyAbout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyAboutController extends Controller
 {
@@ -83,8 +84,15 @@ class CompanyAboutController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CompanyAbout $companyAbout)
+    public function destroy(CompanyAbout $about)
     {
-        //
+        DB::transaction(function () use($about) {
+            if ($about->thumbnail && Storage::disk('public')->exists($about->thumbnail)) {
+                Storage::disk('public')->delete($about->thumbnail);
+            }
+            $about->delete();
+        });
+
+        return redirect()->route('admin.abouts.index');
     }
 }

@@ -25,7 +25,7 @@ class UpdateAboutRequest extends FormRequest
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'thumbnail' => 'sometimes|image|mimes:png,jpg,jpeg,webp',
-            'keypoints.*' => 'require|string|max:255',
+            'keypoints.*' => 'required|string|max:255',
         ];
     }
 }

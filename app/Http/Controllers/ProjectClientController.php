@@ -6,6 +6,7 @@ use App\Http\Requests\StoreClientRequest;
 use App\Models\ProjectClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectClientController extends Controller
 {
@@ -80,8 +81,18 @@ class ProjectClientController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProjectClient $projectClient)
+    public function destroy(ProjectClient $client)
     {
-        //
+        DB::transaction(function () use($client) {
+            if ($client->avatar && Storage::disk('public')->exists($client->avatar)) {
+                Storage::disk('public')->delete($client->avatar);
+            }
+            if ($client->logo && Storage::disk('public')->exists($client->logo)) {
+                Storage::disk('public')->delete($client->logo);
+            }
+            $client->delete();
+        });
+
+        return redirect()->route('admin.clients.index');
     }
 }

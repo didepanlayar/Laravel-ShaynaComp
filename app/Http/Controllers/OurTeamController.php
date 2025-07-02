@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTeamRequest;
 use App\Models\OurTeam;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OurTeamController extends Controller
 {
@@ -75,8 +76,15 @@ class OurTeamController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OurTeam $ourTeam)
+    public function destroy(OurTeam $team)
     {
-        //
+        DB::transaction(function () use($team) {
+            if ($team->avatar && Storage::disk('public')->exists($team->avatar)) {
+                Storage::disk('public')->delete($team->avatar);
+            }
+            $team->delete();
+        });
+
+        return redirect()->route('admin.teams.index');
     }
 }

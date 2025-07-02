@@ -7,6 +7,7 @@ use App\Models\ProjectClient;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class TestimonialController extends Controller
 {
@@ -48,7 +49,7 @@ class TestimonialController extends Controller
             $newTestimonial =  Testimonial::create($validated);
         });
 
-        return redirect()->route('admin.statistics.index');
+        return redirect()->route('admin.testimonials.index');
     }
 
     /**
@@ -80,6 +81,13 @@ class TestimonialController extends Controller
      */
     public function destroy(Testimonial $testimonial)
     {
-        //
+        DB::transaction(function () use($testimonial) {
+            if ($testimonial->thumbnail && Storage::disk('public')->exists($testimonial->thumbnail)) {
+                Storage::disk('public')->delete($testimonial->thumbnail);
+            }
+            $testimonial->delete();
+        });
+
+        return redirect()->route('admin.testimonials.index');
     }
 }

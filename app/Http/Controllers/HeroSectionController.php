@@ -6,6 +6,7 @@ use App\Http\Requests\StoreHeroSectionRequest;
 use App\Models\HeroSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class HeroSectionController extends Controller
 {
@@ -77,6 +78,14 @@ class HeroSectionController extends Controller
      */
     public function destroy(HeroSection $heroSection)
     {
-        //
+        DB::transaction(function () use($heroSection) {
+            if ($heroSection->banner && Storage::disk('public')->exists($heroSection->banner)) {
+                Storage::disk('public')->delete($heroSection->banner);
+            }
+
+            $heroSection->delete();
+        });
+
+        return redirect()->route('admin.hero-sections.index');
     }
 }
