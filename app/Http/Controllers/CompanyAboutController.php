@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAboutRequest;
+use App\Http\Requests\UpdateAboutRequest;
 use App\Models\CompanyAbout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -68,17 +69,40 @@ class CompanyAboutController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CompanyAbout $companyAbout)
+    public function edit(CompanyAbout $about)
     {
-        //
+        return view('admin.abouts.edit', compact('about'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CompanyAbout $companyAbout)
+    public function update(UpdateAboutRequest $request, CompanyAbout $about)
     {
-        //
+        DB::transaction(function () use($request, $about) {
+            $validated = $request->validated();
+
+            if($request->hasFile('thumbnail')) {
+                if ($about->thumbnail && Storage::disk('public')->exists($about->thumbnail)) {
+                    Storage::disk('public')->delete($about->thumbnail);
+                }
+                $iconPath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $validated['thumbnail'] = $iconPath;
+            }
+
+            $about->update($validated);
+
+            if(!empty($validated['keypoints'])) {
+                $about->keypoints()->forceDelete();
+                foreach ($validated['keypoints'] as $keypoint) {
+                    $about->keypoints()->create([
+                        'keypoint' => $keypoint
+                    ]);
+                }
+            }
+        });
+
+        return redirect()->route('admin.abouts.index');
     }
 
     /**

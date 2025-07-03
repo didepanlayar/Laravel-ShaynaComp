@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use App\Models\ProjectClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -65,17 +66,39 @@ class ProjectClientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProjectClient $projectClient)
+    public function edit(ProjectClient $client)
     {
-        //
+        return view('admin.clients.edit', compact('client'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProjectClient $projectClient)
+    public function update(UpdateClientRequest $request, ProjectClient $client)
     {
-        //
+        DB::transaction(function () use($request, $client) {
+            $validated = $request->validated();
+
+            if($request->hasFile('avatar')) {
+                if ($client->avatar && Storage::disk('public')->exists($client->avatar)) {
+                    Storage::disk('public')->delete($client->avatar);
+                }
+                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+                $validated['avatar'] = $avatarPath;
+            }
+
+            if($request->hasFile('logo')) {
+                if ($client->logo && Storage::disk('public')->exists($client->logo)) {
+                    Storage::disk('public')->delete($client->logo);
+                }
+                $logoPath = $request->file('logo')->store('logos', 'public');
+                $validated['logo'] = $logoPath;
+            }
+
+            $client->update($validated);
+        });
+
+        return redirect()->route('admin.clients.index');
     }
 
     /**
