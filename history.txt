@@ -114,3 +114,5 @@
 
 # Insert Data
 - Modify all controllers to store()
+
+# Remove Delete File form Storage Function

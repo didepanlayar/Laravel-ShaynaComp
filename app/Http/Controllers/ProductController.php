@@ -79,9 +79,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         DB::transaction(function () use($product) {
-            if ($product->thumbnail && Storage::disk('public')->exists($product->thumbnail)) {
-                Storage::disk('public')->delete($product->thumbnail);
-            }
             $product->delete();
         });
 

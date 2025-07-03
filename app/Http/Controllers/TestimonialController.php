@@ -82,9 +82,6 @@ class TestimonialController extends Controller
     public function destroy(Testimonial $testimonial)
     {
         DB::transaction(function () use($testimonial) {
-            if ($testimonial->thumbnail && Storage::disk('public')->exists($testimonial->thumbnail)) {
-                Storage::disk('public')->delete($testimonial->thumbnail);
-            }
             $testimonial->delete();
         });
 

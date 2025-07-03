@@ -79,9 +79,6 @@ class CompanyStatisticController extends Controller
     public function destroy(CompanyStatistic $statistic)
     {
         DB::transaction(function () use($statistic) {
-            if ($statistic->icon && Storage::disk('public')->exists($statistic->icon)) {
-                Storage::disk('public')->delete($statistic->icon);
-            }
             $statistic->delete();
         });
 

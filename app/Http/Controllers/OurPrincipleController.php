@@ -84,12 +84,6 @@ class OurPrincipleController extends Controller
     public function destroy(OurPrinciple $principle)
     {
         DB::transaction(function () use($principle) {
-            if ($principle->icon && Storage::disk('public')->exists($principle->icon)) {
-                Storage::disk('public')->delete($principle->icon);
-            }
-            if ($principle->thumbnail && Storage::disk('public')->exists($principle->thumbnail)) {
-                Storage::disk('public')->delete($principle->thumbnail);
-            }
             $principle->delete();
         });
 

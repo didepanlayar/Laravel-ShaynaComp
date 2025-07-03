@@ -79,10 +79,6 @@ class HeroSectionController extends Controller
     public function destroy(HeroSection $heroSection)
     {
         DB::transaction(function () use($heroSection) {
-            if ($heroSection->banner && Storage::disk('public')->exists($heroSection->banner)) {
-                Storage::disk('public')->delete($heroSection->banner);
-            }
-
             $heroSection->delete();
         });
 

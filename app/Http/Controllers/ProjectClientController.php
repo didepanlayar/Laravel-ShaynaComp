@@ -84,12 +84,6 @@ class ProjectClientController extends Controller
     public function destroy(ProjectClient $client)
     {
         DB::transaction(function () use($client) {
-            if ($client->avatar && Storage::disk('public')->exists($client->avatar)) {
-                Storage::disk('public')->delete($client->avatar);
-            }
-            if ($client->logo && Storage::disk('public')->exists($client->logo)) {
-                Storage::disk('public')->delete($client->logo);
-            }
             $client->delete();
         });
 

@@ -39,8 +39,8 @@ class CompanyAboutController extends Controller
             $validated = $request->validated();
 
             if($request->hasFile('thumbnail')) {
-                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
-                $validated['thumbnail'] = $thumbnailPath;
+                $iconPath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $validated['thumbnail'] = $iconPath;
             }
 
             $newAbout =  CompanyAbout::create($validated);
@@ -87,9 +87,6 @@ class CompanyAboutController extends Controller
     public function destroy(CompanyAbout $about)
     {
         DB::transaction(function () use($about) {
-            if ($about->thumbnail && Storage::disk('public')->exists($about->thumbnail)) {
-                Storage::disk('public')->delete($about->thumbnail);
-            }
             $about->delete();
         });
 

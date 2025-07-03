@@ -79,9 +79,6 @@ class OurTeamController extends Controller
     public function destroy(OurTeam $team)
     {
         DB::transaction(function () use($team) {
-            if ($team->avatar && Storage::disk('public')->exists($team->avatar)) {
-                Storage::disk('public')->delete($team->avatar);
-            }
             $team->delete();
         });
 
