@@ -116,3 +116,16 @@
 - Modify all controllers to store()
 
 # Remove Delete File form Storage Function
+
+# Update Data
+- Modify all files to update data
+
+- Modify Home views
+- Create Products views
+- Create Teams views
+- Create About views
+- Create Appointment views
+- Modify web.php routes
+- Modify FrontController
+- Modify AppointmentController
+- Modify Admin Appointment Index and Detail views
